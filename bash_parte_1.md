@@ -132,7 +132,112 @@ ls -lh
 Es decir, a continuación se presentan los comandos para movernos entre directorios. 
 
 
+### cd: change directory
+Es un comando que como su nombre lo dice sirve para cambiar entre carpetas(directorios) dentro del computador, por tanto al hacer `pwd` mostrará esta nueva ruta: 
 
+``` bash
+cd <ruta/nombre_archivo>
+```
+
+Pero ojo, es por niveles; es decir, si estoy en `home` y me quiero mover a una carpeta B dentro de una carpeta A, primero debo moverme a la carpeta A y luego a la carpeta B, o directamente poner la ruta completa desde donde estoy.
+
+``` bash
+cd carpeta_A
+pwd # /home/carpeta_A
+```
+y luego
+``` bash
+cd carpeta_B
+pwd #/home/carpeta_A/carpeta_B
+```
+O poner directamente toda la ruta completa
+
+``` bash
+cd /home/carpeta_A/carpeta_B
+```
+
+Para ir un directorio atrás, es decir, estoy en /home/carpeta_A/carpeta_B
+y quiero moverme de nuevo a /home/carpeta_A simplemente basta con el comando: 
+
+``` bash
+cd .. # o pues directamente poner el directorio /home/carpeta_A
+pwd #/home/carpeta_A
+```
+
+Por tanto, si se quiere ir varios directorios atras pues simplemente se indican cuantos como se quieran; por ejemplo, si estoy en la carpeta `/home/carpeta_A/carpeta_B` la forma de devolverme a la carpeta /home sería:
+
+``` bash
+cd ../.. # el primero va de carpeta_B a carpeta_A y el otro de carpeta_A a #home.
+pwd #/home
+```
+
+Otra forma de movernos a la raíz de nuestro sistema es con la birgulilla "~": 
+``` bash
+cd ~ # el primero va de carpeta_B a carpeta_A y el otro de carpeta_A a #home.
+pwd #/home que es lo mismo que ~
+```
+
+Recordemos que home es el directorio raíz del usuario. 
+
+## Ruta absoluta y relativa.
+La ruta absoluta indica la ubicación exacta de un archivo DESDE la raiz del disco. La ruta relativa indica el camino al archivo como un punto de partida la carpeta donde estás ahora. 
+
+### Ruta absoluta
+* Empieza siempre en el nivel más alto del sistema (la raíz / o la unidad C:).
+
+* No cambia nunca, sin importar en qué carpeta te encuentres.
+
+* Es la ubicación COMPLETA de un archivo o carpeta dentro del sistema, dentro de mi propio SO. 
+
+* al hacer `cd /` lo que hacemos es movernos a la raiz del sistema operativo y a partir de eso nos podemos mover a cualquier lugar. 
+
+### Ruta relativa (la ruta más rápida y corta cuando sabemos donde estamos)
+*Empieza desde tu carpeta actual de trabajo.
+
+* Usa símbolos especiales como un punto . para la carpeta actual o dos puntos .. para subir un nivel.
+
+* Cambia si te mueves a otro directorio.
+
+* Al hacer `cd tab` se usan rutas relativas con referencia a la carpeta actual para moverse y ubicar los archivos dentro de la carpeta.
+
+Si quiero hacer
+
+
+Notas:
+* Con warp, podemos apretar la tecla tab y este nos motrará las carpetas que ya tenemos para poder movernos de una manera más dinámica seleccionando con el enter el directorio que se quiere. 
+
+* el Punto ".", si, explicitamente un punto significa la ruta del directorio actual.
+Por ejemplo, hacer `cd .` pues no nos lleva a ningún lado porque quiere decir cambiar el directorio actual. Sus utilidades las tendremos más adelante. 
+
+
+## Comandos básicos útiles
+
+### whoami
+Comando para conocer el usuario actual. 
+
+### ncal -b (de la libraria ncal)
+Para ver el calendario y el día exacto en que se está
+
+Nota: si no se tiene se instala fácil con sudo apt update && sudo apt install ncal.
+
+### date
+Sirve para para mostrar la fecha y la hora según el país. Para Colombia, el -05 significa que hay que restar -5 horas respecto al meridiano de greenwich.
+
+### uptime
+Para ver el tiempo que lleva encendida la máquina.
+
+### hostname 
+Conocer el nombre de la computadora.
+
+### uname
+Nombre del sistema operativo en el que se está trabajando.
+
+
+### uname -a 
+Muestra más informción acerca del computador y el kernell que se está usando. 
+
+### clear o ctrl + l
+Para limpiar la pantalla. 
 
 
 
