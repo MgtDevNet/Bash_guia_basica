@@ -19,6 +19,12 @@ Para instalarlo pues es muy sencillo desde su página origninal [click aquí](ht
 
 Ojo, NO es necesario instalar esta aplicación pues todos los comandos y lógica se pueden llevar a cabo en la terminal; Sin embargo, puede ser una gran oportunidad para mejorar en el desarrollo. 
 
+## Definiciones
+Fichero = Archivo
+Directorio = Carpeta
+
+Un directorio puede estar compuesto por ficheros $/rightarrow$ Una caperta puede estar compuesta por archivos. 
+
 
 ## ¿Por qué usar BASH?
 Porque es el estandar en Linux, Unix y MacOS. Teniendo en cuenta que Linux y Unix son la base(el core) más importantes y más usados en servidores, infraestructura, etc.  
@@ -238,6 +244,122 @@ Muestra más informción acerca del computador y el kernell que se está usando.
 
 ### clear o ctrl + l
 Para limpiar la pantalla. 
+
+## Anatomía del comando
+Viene a ser la estrucutra general de los comandos, normalmente se tiene algo como
+
+```bash
+comando <opciones> <argumentos>
+```
+
+## Ayuda y doucumentación
+
+### man
+Si se tiene dudas acerca de un comando, para que sirve y como podemos usarlo podemos ver esta documentación con el comando: 
+
+```bash
+man <comando> #para ver el manual.
+```
+Para salir del lugar donde están esas ayudas se usa la letra `q` de quit.
+
+### --help o -h
+Para buscar ayuda de un comando específico: 
+```bash
+<comando> --help
+#o 
+<comando> -h #si no funciona el --help
+```
+
+# Sistemas de archivos Unix y Gestión de los archivos
+## preliminar
+Bash incialmente es una bash para sitemas Unix es necesario entender esos directorios que se tiene por defecto que hay desde la raíz. 
+
+Primero, vamos a  la raíz de nuestro sistema y veamos los directorios que se tienen
+```bash
+cd / #primero comando para movernos al directorio raíz
+ls #segundo comando
+#y veremos las carpetas en la raíz del sistema.
+```
+Para cada sistema operativo pueden haber más o menos carpetas y también dependiendo de los programas que se usen también pueden cambiar estos directorios; sin embargo, hay unos que si que son comúnes para todos los sitemas Unix los cuales son: 
+
+* / : directorio raíz de todo el sistema operativo
+* /home: Directorio de las carpetas personales del usuario. 
+* /bin: Directorio donde están los programas básicos 
+* /etc: Directorio de configuración del sistema.
+* /usr: Software adicional
+* /var: Archivos variables
+* /tmp: Archivos temporales, lugar donde se guardan archgivos que el sistema guarda por un tiempo finito. 
+
+
+* Ahora bien, sabemos que el Directorio "/" es el directorio raíz. El Directorio "~" el lugar donde están todos los archivos personales del usuario y es el equivalente al hacer `/home/nombre_usario`. 
+
+``` bash
+cd ~ 
+#es lo mismo que
+cd /home/nombre_usuario
+```
+## Gestión y manipulación de archivos
+
+### mkdir: make directory
+Sirve para crear una carpeta nueva dentro de la ruta relativa en al que estamos.
+
+```bash
+mkdir <nombre-carpeta>
+```
+
+### rmdir: remove directory
+Sirve para eliminar una carpeta(directorio) dentro de la ruata relativa en la que estamos. 
+
+```bash
+rmdir <nombre-carpeta>
+```
+
+Ejemplo: 
+```bash
+ls #mira los directorios que tienes en el momento
+mkdir carpeta_nueva #creamos carpeta
+ls #miramos que se haya creado
+rmdir carpeta_nueva #eliminamos la carpeta
+ls #miramos que ya no esté
+```
+
+ojo, este comando SOLO ELIMINA DIRECTORIOS VACIOS, si hay un solo archivo el comando fallará. Para eliminar un directorio con contenido hay que usar el comando: 
+
+### rm
+Es un comando hecho princpalmente para eliminar archivos pero puede usarse para eliminar carpetas con su contenido si se le agrega la opción de recursivo: 
+
+```bash
+rm <nombre_archivo>
+```
+
+```bash
+rm -r <nombre_directorio>
+```
+
+### cp: copy
+Para tener una copia de algún fichero. 
+
+```bash
+cp <nombre_fichero_copiar> <nombre_fichero_nuevo.ext>
+```
+Cuidado, hay que poner la extensión del fichero.
+
+Para copiar un directorio con contenido completo en otra carpeta con ese contenido contenido:
+
+```bash
+cp -r <nombre_fichero_copiar> <nombre_fichero_nuevo.ext>
+# no se puede olvidar la opción de -r
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
