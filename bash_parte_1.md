@@ -336,6 +336,26 @@ rm <nombre_archivo>
 rm -r <nombre_directorio>
 ```
 
+la opción -f sive para forzar la eliminación ignorando los archivos que no existen y omitiendo cualquier aviso de confirmación. Tampoco muestra errores si el arhcivo destino no se encuentra.
+
+**comando recomendado: rm -ri**
+Sirve para borrar carpetas y arhcivos pidiendo confirmación paso a paso pues -i (interactive) activa del modo interactivo de tal manera que el sistema preguntará antes de borrar. 
+
+```bash
+rm -ri <nombre-fichero-directorio>
+```
+
+Entonces por ejemplo si se pone un directorio preguntará paso a paso cada uno de los ficheros para eliminarlos. 
+
+**!Peligro extremo¡**
+-f es la copción
+```bash
+sudo rm -rf /
+```
+Este comando quiere decir: Como administrador remover todo el contenido forzado DE LA CARPETA RAÍZ /.
+
+ojo, en bash no tenemos papelera por ende todo se perderá y no se podrá recuperar.
+
 ### cp: copy
 Para tener una copia de algún fichero. 
 
@@ -351,15 +371,319 @@ cp -r <nombre_fichero_copiar> <nombre_fichero_nuevo.ext>
 # no se puede olvidar la opción de -r
 ```
 
+El comando cp -a hace una copia de seguridad exacta manteniendo los mismos metadatos pues cp -r solo copia el contenido y cra los archivos como si fueran nuevos. 
+```bash
+cp -a <nombre_fichero_copiar> <nombre_fichero_nuevo.ext>
+```
+
+## mv: move
+Para mover ficheros y directorios y reenombrar. 
+
+mv <ruta_archivo> <ruta_carpeta_donde_se_guardara>
+
+o para renombrar simplemente indicamos el nombre del archivo o directorio y luego el nuevo nombre teniendo en cuenta la extensión. 
+
+mv <nombre_viejo.ext> <nombre_nuevo.ext>
+
+## Comodines(wildcards)
+Son caracteres especiales que representan a otros caracteres para buscar, listar o borrar archivos de forma masiva. Permiten crear patrones para no tener que escribir cada nombre completo uno por uno.
+
+1. El asterisco (*)
+
+Qué hace: Representa cualquier cantidad de caracteres (incluyendo ninguno).
+
+```bash
+rm *.jpg
+```
+
+Resultado: Borra todos los archivos que terminen en .jpg, sin importar cómo se llamen.
+
+2. El signo de interrogación (?)
+
+Qué hace: Representa exactamente un solo carácter.
+
+```bash
+ls foto?.jpg
+``` 
+Resultado: Listará foto1.jpg o fotoA.jpg, pero ignorará foto10.jpg (porque tiene dos caracteres después de "foto").
+
+Si se pone por ejemplo ls ???? pues entonces lista los archivos que el nombre sea de 4 caractéres.
+
+también pueden convinarse el ? con el * para seleccionar los archivos que el nombre tiene la cantidad fija de caracteres o más y entre esos van incluidas las extensiones. 
+
+3. Los corchetes ([])
+
+Qué hace: Representa un carácter que esté dentro de una lista o rango definido.
+
+``` bash
+cp documento_[1-3].pdf /respaldo/
+```
+
+Resultado: Copia solo documento_1.pdf, documento_2.pdf y documento_3.pdf.
+
+Algunos ejemplos: 
+
+``` bash
+rm *.txt #eliminar todos los ficheros que terminen con .txt
+```
+``` bash
+rm ?.txt #eliminar todos los ficheros que que solo tengan una letra pero que acaben en .txt
+```
+Por tanto, las wildcards pueden combinarse con todos los otros comandos que estamos viendo. 
+
+## Listados avanzados
+Ya conocemos el comando simple para listar `ls`. Ahora bien, hay muchos más.
+
+### tree: listado avanzado
+Es una forma muy útil de listar archivos y directorios, pero ojo, no siempre esta instalada por defecto; por tanto, primero se instala. 
+
+Nota: Si estas usando warp y escribes el comando `tree` directamente nos mostrará el error y nos dará el comando automáticamente para instalarlo. En linux es: 
+
+```bash
+sudo apt install tree   
+```
+
+Ahora, luego de instalarlo pues ejecutamos el comando `tree`
+
+```bash
+tree   
+```
+Y lo que nos muestra es directamente es un árbol entre directorios y archivos el cual es muy útil para la visualización de nuestro lugar de trabajo. Aunque ojo, pues hacer el comando `tree` en una carpeta con muchos directorios y muchos archivos hace que el árbol ya sea ilegible. 
 
 
+```bash
+tree -a #agrega archivos ocultos   
+```
+
+Recordemos usar `tree -h` o `tree --help` o `man tree` si queremos ver las otras opciones para usar este comando. 
+
+### find: encontrar
+Este comando sirve para buscar si hay algún fichero en específico. 
 
 
+```bash
+find . -name "<nombre_fichero>"   
+```
+
+Busca dentro del directorio actual "." el fichero específico según el nombre dado. Tiene que ser entre comillas.
+
+En caso de que si encuentre el archivo pues entonces retornará `./<nombre fichero>` indicando que si está en ese directorio. O si está dentro de otra carpeta pero dentro de ese directorio actual "." pues dará la ruta de esa carpeta y luego del archivo. En caso que no retorne nada es porque no encontró ese fichero. 
+
+Ahora bien, en este caso también podemos usar los comodines, por ejemplo: 
 
 
+```bash
+find . -name "archivo_*"   
+```
 
+y esto mostrará todos los archivos que su nombre empieze por la cadena "archivo_".
 
+# Comandos avanzados
 
+## lectura de archivos
 
+### cat: lectura para archivos pequeños.
+Sirve para leer por pantalla un archivo de texto pequeño. Para textos o archivos grandes en general no es lo recomendable. 
 
+```bash
+cat <nombre-archivo>
+```
 
+### less: lectura para ficheros largos
+Es un comando un poco más avanzado que cat pues permite **paginar** el contenido de un archivo que sea un poco más largo. Es decir, es como si abriera un libro con solo esa información y se sube y se baja con libertad sin tener todo cargado en la terminal junto a los códigos.
+
+```bash
+less <nombre-archivo>
+```
+
+Para salir, se usa la tecla `q`. Less lo que hace es abrir un lector. 
+
+### more
+Desplazamiento poco a poco directamente en la terminal sin irnos a un lector como el comando less; Es decir, imprime todo poco a poco.
+
+```bash
+more <nombre-archivo>
+```
+
+### head
+Para ver el encabezado del texto, por defecto las 10 primeras líneas de un archivo. 
+
+```bash
+head <nombre-archivo>
+```
+
+Para ver un número específico de líneas del archivo, se hace con: 
+
+```bash
+head -n <número> <nombre-archivo>
+```
+
+### tail
+Mismo caso del head pero para el final del archivo. 
+
+```bash
+tail <nombre-archivo>
+```
+
+Para ver un número específico de líneas del archivo, se hace con: 
+
+```bash
+tail -n <número> <nombre-archivo>
+```
+Muy útil para casos de aplicaciones que usen logs y poder ver lo último de retornos de estas aplicaciones: 
+
+```bash
+tail -f <número> <nombre-archivo>
+#para ver lo último de un archivo en tiempo real
+```
+
+**recordemos que para la mayoría de comandos hay muchas más opciones, por tanto hay que usar los comandos --help, -h y man para ver esto**
+
+## Búsquedas dentro de los ficheros
+
+### grep
+sirve para buscar palabras, frases o expresiones regulares dentro de archivos de texto o en la salida de otros comandos
+
+```bash
+grep "cadena-a-buscar" <archivo>
+```
+al agregar el "-i" ignora mayúsculas y minúsculas. 
+
+Recordemos que la opción `-r` representa la recursividad, que en bash significa que una acción o comando se aplica de forma automática a una carpeta principal, a todas sus subcarpetas y a todos los archivos que contengan. Por tanto, este comando puede usarse de manera recursiva y mostrar todos los ficheros con la cadenas especificada.
+
+```bash
+grep -r "cadena-a-buscar" <archivo-o-ruta>
+```
+la opción `-ri` sería para hacer la búsqueda recursiva e ignorar las mayúsculas y minúsculas. 
+
+### wc: word count
+Sirve para contar las líneas, palabras, caracteres y bytes de un archivo o de los datos que recibe de otro comando.
+
+```bash
+wc <nombre-archivo>
+```
+
+Si se usa así nada más retorna 4 columans de información: 
+
+número de líneas - Número de palabras - Número de bytes - Nombre archivo
+
+Ejemplo: 
+```bash
+wc archivo.txt
+# Resultado:  4  20 120 archivo.txt
+#4: Número de líneas.
+#20: Número de palabras.
+# 120: Número de bytes.
+#archivo.txt: Nombre del archivo.
+```
+
+Las opciones más útiles son: 
+
+```bash
+wc -l #Cuenta solo las líneas (muy útil en administración de sistemas).
+
+```
+
+```bash
+wc -l #Cuenta solo las palabras.
+```
+
+```bash
+wc -m # Cuenta solo los caracteres.
+```
+
+```bash
+wc -c #Cuenta solo los bytes.
+```
+
+La mayor utilidad es combinando con otros comandos apra contar cosas directamente dle sistema. 
+
+Recordemos que la combinación de opciones es poniendo un solo guión y luego las letras para estas opciones. Por ejemplo: -cl o -ml.
+
+## Redirecciones y pipes
+Las redirecciones y los pipes (tuberías) son mecanismos de la consola de comandos (terminal) que permiten controlar hacia dónde fluye la entrada y salida de los datos.
+
+### Redirecciones
+Redirecciones (>, >>, <): Cambian el origen o destino del flujo de datos entre un comando y un archivo. 
+
+Sirven para: Guardar la salida de un comando en un fichero en lugar de mostrarla en pantalla, o enviar el contenido de un archivo como entrada a un comando.
+
+**Redirección simple: >**
+Redireccionar la salida de un comando, este que es el simple sobre-escribe el documento.
+```bash
+ls > lista.txt #guarda la lista de archivos en un documento
+#pues REDIRECCIONA LA SALIDA DEL COMANDO    
+```
+
+**Rediriccionamiento no simple: >>**
+Se usa para no sobreescribir los archivos sino agregar las cosas en el archivo. Es decir, para poner diferentes comandos en el mismo archivo. 
+
+```bash
+tree >> archivo.txt # el resultado del árbol de
+# el directorio actual guardarlo en el archivo redireccion.txt
+```
+
+**Redireccionamiento al contrario**
+Es decir, sirve para tomar el contenido de un archivo y usarlo en la terminal. Por ejemplo, ordenar los valores de una archivo. Por ejemplo: 
+
+```bash
+sort < archivo
+```
+
+Entonces retornará los valores del archivo ordenados. 
+
+### Pipes: |
+Conectan comandos entre sí en tiempo real.
+Tomar la salida de un comando y pasarla directamente como entrada del siguiente, permitiendo encadenar tareas complejas en una sola línea. Igual que el Pipe de R. 
+Funciona como el pipe de R, **datos %>% función**
+permiten encadenas un resultado al siguiente. 
+
+```bash
+cat texto.txt | grep "hola" #busca la palabra "hola" dentro del archivo leído
+```
+
+Ejemplo
+```bash
+head poema_20_pablo_neruda.txt | grep "besé" | wc -l
+```
+En un archivo llamado poema_20_pablo_neruda.txt se tiene poema, entonces al hacer un head (mostrar las 10 primeras líneas). Luego en esas 10 primeras líneas buscar la palabra besé y luego contar cuantas veces está. Todo esto sirve para seguir usando los resultados de los comandos y no tener que crear archivos para correr comandos sencillos. 
+
+# Variables de entorno
+
+## Variables locales 
+También existen las variables locales que se pueden usar en el contexto actual(sesión) y se definen como las variables en python: 
+
+```bash
+nombre_variable=<contenido>
+```
+y para ver su contenido sería: 
+```bash
+echo $nombre_variable
+```
+Ahora bien, si se abre una nueva sesión o se reinicia la terminal y se vulve a tratar de ver el contenido de la variable no se verá nada, ya que la variable es local a la sesión. Esta varible solo es conocida por la sesión actual. Por la instancia de linux donde se creó. 
+
+## Varibles globales
+Las variables de entorno son valores dinámicos globales almacenados en el sistema operativo que definen el comportamiento de los procesos, las aplicaciones y la consola de comandos.
+
+Son como variables muy importantes definidas en el sistema que cualquier programa en el sistema operativo puede utilizar y necesita usar para saber como comportarse.
+
+¿Cómo guardar una varible global?
+
+Para el usuario actual: 
+
+1. Abrir el archivo `~/.bashrc`; es decir, dentro de home el archivo oculto llamado `.bashrc`. Redomendable con un editor de texto como visual estudio o si no pues directamente en la terminal . 
+
+```bash
+code ~/.bashrc # con vs code
+nano ~/.bashrc # con la propia terminal
+```
+
+2. Ir al final del documento y agregar la varible: 
+
+```bash
+export MI_VARIABLE="mi_valor"
+```
+
+Con vs code simplemente guarda, con nano se da ctrl + o, enter y ctrl + x. 
+
+3. Aplicar cambios reiniciando. Puede ser escribiendo el comando `bash` y ya está.
