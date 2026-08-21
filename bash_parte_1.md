@@ -687,3 +687,168 @@ export MI_VARIABLE="mi_valor"
 Con vs code simplemente guarda, con nano se da ctrl + o, enter y ctrl + x. 
 
 3. Aplicar cambios reiniciando. Puede ser escribiendo el comando `bash` y ya está.
+
+# Editores básicos de texto
+Son editores básicos que se encuentran dentro de bash para editar y modifcar texto, principalmente 2: **nano** y **vim**. Estos editores de texto pueden llegar a usarse también como editores de código sencillos.
+
+Es importante mencionar que ambos editores tienen funcionalidades complejas y profundas que requieren mucho tiempo y práctica dominarlas. Por ello, es que solo introduciremos a estos. 
+
+## Nano
+Editor de texto recomendado para ediciones simples.
+
+Creemos un archivo de texto simple, por ejemplo: 
+
+```bash
+nano poema_20_pablo_neruda.txt
+```
+Al ejectuar este comando se abrirá el editor de texto nano, allí pegaremos el poema: 
+
+```
+Puedo escribir los versos más tristes esta noche.
+Escribir, por ejemplo: «La noche está estrellada,
+y tiritan, azules, los astros, a lo lejos».
+El viento de la noche gira en el cielo y canta.
+Puedo escribir los versos más tristes esta noche.
+Yo la quise, y a veces ella también me quiso.
+En las noches como ésta la tuve entre mis brazos.
+La besé tantas veces bajo el cielo infinito.
+Ella me quiso, a veces yo también la quería.
+Cómo no haber amado sus grandes ojos fijos.
+Puedo escribir los versos más tristes esta noche.
+Pensar que no la tengo. Sentir que la he perdido.
+Oír la noche inmensa, más inmensa sin ella.
+Y el verso cae al alma como al pasto el rocío.
+Qué importa que mi amor no pudiera guardarla.
+La noche está estrellada y ella no está conmigo.
+Eso es todo. A lo lejos alguien canta. A lo lejos
+Mi alma no se contenta con haberla perdido.
+Como para acercarla mi mirada la busca.
+Mi corazón la busca, y ella no está conmigo.
+La misma noche que hace blanquear los mismos árboles.
+Nosotros, los de entonces, ya no somos los mismos.
+Ya no la quiero, es cierto, pero cuánto la quise.
+Mi voz buscaba el viento para tocar su oído.
+De otro. Será de otro. Como antes de mis besos.
+Su voz, su cuerpo claro. Sus ojos infinitos.
+Ya no la quiero, es cierto, pero tal vez la quiero.
+Es tan corto el amor, y es tan largo el olvido.
+Porque en noches como ésta la tuve entre mis brazos,
+mi alma no se contenta con haberla perdido.
+Aunque éste sea el último dolor que ella me causa,
+y estos sean los últimos versos que yo le escribo.
+```
+
+Luego, para guardar le damos ctrl + o, luego Enter y luego ctrl + x para salir. 
+
+Por tanto, con el comando 
+
+```bash
+nano <archivo.ext>
+```
+
+Se puede crear si no existe el fichero o abrir el existente en nuestro editor de texto nano, se presenta el cursor para moverse entre el contenido del documento y podemos empezar a editarlo. En la misma pantalla hay comandos de atajos para ayudarnos con el texto.
+
+Es recomendable usar cada atajo o directamente revisar la documentación en caso de querer conocer más. 
+
+## Vim
+Editor de texto más complejo y completo (Su curva de aprendizaje es mas avanzada). Necesita ciertos comandos únicos y necesita la instalación de extensiones para poder usarse al nivel de un editor de código como vs code y trabajar con el de una manera cómoda. 
+
+Primero que nada, de manera análoga a nano, si ejecutamos el comando: 
+
+```bash
+vim <archivo.ext>
+```
+
+Si el archivo no existe encontre lo crea, de lo contrario lo abre en el editor de texto. Ahora bien es necesario entender que **vim** tiene varios modos: 
+
+### Vim modo normal
+Es el modo que permite copiar, borrar y las acciones simples 
+que NO están relacionadas con escribir texto. Permite movernos con las teclas y con las flechas.  
+
+* h: Mueve el cursor un carácter a la izquierda.
+* j: Mueve el cursor una línea hacia abajo.
+* k: Mueve el cursor una línea hacia arriba.
+* l: Mueve el cursor un carácter a la derecha.
+* w: Salta al principio de la siguiente palabra.
+* b: Regresa al principio de la palabra anterior.
+* 0 (cero): Va al inicio absoluto de la línea actual.
+* $: Va al final de la línea actual.
+* gg: Va a la primera línea del archivo.
+* G: Va a la última línea del archivo.
+* /palabra: Es para buscar  una palabra.
+* dd: Elimina una linea completa
+* yy: Copia la línea actual completa.
+* p: Pega la línea copiada justo abajo de la línea actual.
+
+Por tanto, estos comandos se vuelven bastante útiles para ahorrar tiempo
+
+Para salir se escribe `:q` y para obligar a salir sin guardar sería con `:q!` 
+
+### Vim modo incersión
+Este modo es el modo para poder empezar a editar escribiendo texto y para entrar a este modo hay que apretar la letra i, si se quiere volver al modo normal se usa la tecla esc.
+
+Para salir y guardar los camibios`:wq` pero primero hay que estar en el modo normal. 
+
+Este es el editor de texto que se abre de manera automática cuando se olvida poner el -m cuando se está creando un commit en git. 
+
+Nota: Algunos otros editores útiles de códigos son neovim y emacs. Ambos tiene diferentes utilidades, ya queda a criterio de cada uso decidir cual usar. Te recomiendo mirarlos un poco si te interesa el tema de editores de código desde la misma terminal pues son bastante personalizables. 
+
+# Administración del sistema
+Es importante entender que Unix usa permisos para saber que fichero puede ser leido o editado según el usuario. Al igual que los permisos en una base de datos donde hay usuarios que solo permiten leer y otros que permiten leer y editar, pasa lo mismo con los usuarios del sistema. Estos permisos pueden revisarse y pueden modificarse en los sitemas Unix.
+
+## Tipos de permiso
+
+* **Permiso de lectura**: Se designan con la letra `r` (reader).
+* **Permiso de escritura**: Se designan con la letra `w` (write).
+* **Permiso de ejecución**: Se designan con la letra `x` (execute).
+
+## Tipos de usuario
+* **Usuario propietario**: Se designan con la letra `u`.
+* **Grupo**: Se designan con la letra `g`.
+* **Otros**: Se designan con la letra `o`.
+* **Todos**: Se designan con la letra `a`.
+
+## Ver permisos
+Para esto usamos el simple comando `ls` combinado con la opción `-l`.
+
+```bash
+ls -l <nombre-archivo-directorio>
+```
+
+Este comando me motrará varios metadatos del archivo y con ello los permisos. 
+
+Por ejemplo, la salida puede ser
+
+``` bash
+-rw-r--r-- 1 <nombre> <staff> <fecha> <hora> <nombre-archivo>
+```
+se identifica que el usuario nombre del usuario es `<nombre>` que nos da el contexto del dueño del archivo o directorio que se esta analizando. Ahora bien, analizemos cada elemento de la primera parte
+
+``` bash
+-rw-r--r--
+```
+que se separa en los bloques: 
+[-] [rw-] [r--] [r--]
+
+**[-]**: Representa el tipo de archivo, es decir: 
+**-**: Representa un archivo normal. 
+
+**d**: Representa un directorio.
+
+**l**: Representa un enlace simbólico ????
+
+**b**: Bloque
+
+**s**: Dispositivio de caracter
+
+[rw-]: Representa los permisos del usuario. 
+
+[r--]: Representa los permisos del grupo; es decir, si se tiene un grupo de usuarios en el sistema ese sería el permiso que este tendría. 
+
+[r--] pero el último: Representa los permisos de Otros usuarios que no sean propietarios del archivo o que esten en el grupo. 
+
+Importante, los guiones en los permisos representan los tipos de permisos, el primer guión representa el permiso de lectura `r`, el segundo el permiso de escritura `w` y el último el permiso de ejecución `x`. Por ello, el usuario con `rw-` tiene de lectura y escritura pero no ejecución, los que tienen `r--` solo tienen permiso de lectura. Pero, si tuvieran de permiso `rwx` tendría permiso de lectura, escritura y ejecución. 
+
+
+
+
