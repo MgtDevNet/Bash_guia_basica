@@ -849,6 +849,104 @@ que se separa en los bloques:
 
 Importante, los guiones en los permisos representan los tipos de permisos, el primer guión representa el permiso de lectura `r`, el segundo el permiso de escritura `w` y el último el permiso de ejecución `x`. Por ello, el usuario con `rw-` tiene de lectura y escritura pero no ejecución, los que tienen `r--` solo tienen permiso de lectura. Pero, si tuvieran de permiso `rwx` tendría permiso de lectura, escritura y ejecución. 
 
+Estas letras son la representación simbólica de estos permisos de usuarios. Entonces, también tenemos una representación de esto pero en números, los cuales son: 
 
+r = 4; w = 2; x = 1.
 
+Por tanto, si queremos representar los permisos en modo simbólico pues se presentan las letras explícitamente, pero, si se quieren representar en modo octal entonces se presenta la suma de los dígitos del respectivo permiso que se quiere dar. 
 
+## Modificación de permisos. 
+El comando para modificar estos permisos para los usuarios es `chmod`.
+
+### De modo simbólico. 
+Hay que indicar explícitamente el tipo de propietario con la letra. Para añadir permiso se usa el símbolo (+) y para quitar permiso se usa el símbolo (-)
+
+Ejemplo: Quiero AÑADIR(+) permiso de ejecucuión (x) al USUARIO(u), en el archivo dado.
+
+```bash
+chmod u+x <nombre-archivo>
+```
+Intenta hacer eso con algún archivo de texto que tengas. Al hacer `ls -l` en el directorio donde tengas el archivo de texto aparecerán todos los metadatos y los permisos `-rw-r--r--`, al hacer el anterior comando del ejemplo verás que los permisos cambian como `-rwxr--r--`.
+
+Para eliminar un permiso es con lo mismo pero ahora con el signo (-).
+
+```bash
+chmod u-x <nombre-archivo>
+```
+
+### Con el modo octal
+Usar el modo octal es mucho más rápido, ya que este modo directamente trabaja con todos los usuarios y como dijimos la suma se los valores de los permisos es los permisos que se les da. 
+
+Si r = 4; w = 2; x = 1, entonces se pueden usar los números solo, o 3 sería escritura y ejecución, 5 sería lectura y ejecución, 6 sería lectura y escritura y 7 serían todos los permisos. 
+
+Ejemplo,
+
+```bash
+chmod 777 <nombre-archivo>
+```
+
+* El primer 7 se refiere al usuario propietario.
+
+* El segundo 7 se refiere a los grupos de usuarios.
+
+* El tercer 7 se refiere a los Otros usuarios
+
+Para volver al permiso inicial que era lectura y escritura(6) para el propietario y solo lectura(4) para grupos y Otros. 
+
+```bash
+chmod 644 <nombre-archivo>
+```
+
+## Cambiar propietario y grupo
+Sirve para controlar quien tiene acceso para leer, escribir o ejecutar dicho elementos en un sistema multiusuario. Esto permite gestionar seguridad permitiendo que usuarios no autorizados no modifiquen o vean información confidencial. Para esto se usa el comando `chown`.
+
+Si se quiere cambiar solo el propietario:
+
+```bash
+chown <nombre-usuario-nuevo> <nombre-archivo>
+```
+
+o si se quiere cambiar el propietario y el grupo, se separa por 2 puntos:
+
+```bash
+chown  <nombre-usuario-nuevo>:<nuevo-grupo><nombre-archivo>
+```
+
+Cambiar solo el grupo:
+
+```bash
+chown  :<nuevo-grupo> <archivo>
+```
+
+## Máscara de permisos
+sirve para establecer los permisos automáticos que tendrá cualquier archivo o carpeta al momento de ser creado.En lugar de definir qué permisos otorgar, la máscara funciona POR RESTRICCIÓN: define cuáles permisos QUITAR o BLOQUEAR por defecto.
+
+Por defecto, el sistema operativo tiene unos permisos iniciales máximos:
+
+* Archivos nuevos: 666 (Lectura y escritura para todos).
+
+* Carpetas nuevas: 777 (Lectura, escritura y ejecución para todos).
+
+La máscara umask es un número de tres dígitos que se resta a esos permisos máximos para calcular el permiso final.
+
+Ejemplo: Si tu sistema tiene una máscara configurada en 022:
+
+* Para carpetas: 777 (Máximo) - 022 (Máscara) = 755 (El propietario hace todo; el grupo y otros solo leen y entran). 
+
+* Para archivos: 666 (Máximo) - 022 (Máscara) = 644 (El propietario lee/escribe; el grupo y otros solo leen). rwxr--r--
+
+En linux, estas restricciones aparecen con 4 números, pero el primer 0 solo representa que se esta dando en formato octal. Lo importante son las restricciones para los demás tipos de usuarios. 
+
+```bash
+unmask #para ver la máscara
+#retorna 0022
+```
+* 0: sistema octal.
+* 0: restricción usuario
+* 2: restricción grupo
+* 2: restricción otros
+
+Importante, es necesario mencionar que para ver los permisos de los archivos es con `ls -l <nombre-archivo>` y para ver estos permisos en los directorios es con 
+`ls -ls temp`
+
+## Superusuario
