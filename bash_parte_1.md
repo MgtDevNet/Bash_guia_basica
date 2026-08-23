@@ -950,3 +950,100 @@ Importante, es necesario mencionar que para ver los permisos de los archivos es 
 `ls -ls temp`
 
 ## Superusuario
+Hay algunas acciones y/o comandos que necesitan un permiso especial para realizarlas y/o ejecutarlas. Con esto, entra el término de superusuario. El superusuario en Linux, conocido como root, es la cuenta de administrador que tiene control total y sin restricciones sobre todo el sistema operativo. Es una cuenta especial que puede instalar programas, modificar archivos del sistema, cambiar permisos y crear o borrar usuarios. 
+
+En las distribuciones modernas de Linux, no se recomienda iniciar sesión directamente como root por seguridad. Se usan comandos para elevar permisos de forma temporal:sudo (substitute user and do): Permite ejecutar un comando específico con los derechos de root. 
+
+* Escribes sudo antes de tu orden, por ejemplo: sudo apt update, y te pedirá tu propia contraseña.
+
+* su (substitute user): Cambia de usuario y abre una sesión completa como root. Requiere conocer la contraseña de root.
+
+* exit o Ctrl + D: Sirven para cerrar la sesión de superusuario y volver a tu cuenta normal.
+
+# Procesos del sistema
+En Linux, un proceso es una instancia de un programa en ejecución que consume recursos como memoria RAM y tiempo de CPU.
+kernel.
+Posee un número único de identificación llamado PID (Process ID).Tiene un proceso padre (PPID) que lo creó y un usuario asociado.
+
+### ps
+Comando básico para ver la lista de procesos actuales.
+
+```bash
+ps #para ver los procesos actuales que se están ejecutando
+```
+
+### ps aux
+Muestra un listado detalldo de todos los procesos que se están ejecutando en el sistema en ese momento. 
+
+```bash
+ps aux 
+# a: Muestra los procesos de todos los usuarios.
+# u: Muestra información detallada (usuario, uso de cpu y memoria)
+# x: Incluye los procesos que no están vinculados a una términal. 
+```
+Nota: 
+* USER: El usuario dueño del proceso.
+* PID: El número de identificación único del proceso.
+* %CPU y %MEM: El porcentaje de recursos que consume.
+* COMMAND: El nombre del programa o comando que inició el proceso.
+
+### top 
+Para ver los procesos de manera interactiva con sus metadatos en tiempo real
+
+```bash
+top
+```
+Para salir simplemente hay que darle ctrl + c.
+
+### htop
+Para ver los procesos de manera interactiva pero igual que el método top, pero en este caso es un comando más avanzado. Normalmente no está instalada de forma automática, por tanto, hay que instalarla primero. 
+
+```bash
+#instalación
+sudo apt install htop
+
+#ejecución
+htop
+```
+
+### free 
+Sirve para ver el espacio usado y disponible de la memoria y de la memoria de intercambio (Swap) en el sistema.
+
+* total: La cantidad total de memoria instalada.
+
+* used: La memoria que el sistema está usando actualmente.
+
+* free: La memoria que está completamente vacía y sin usar.shared: La memoria usada por el sistema para compartir datos entre procesos.
+
+* buff/cache: La memoria usada por el núcleo para acelerar el sistema.
+
+* available: La memoria real disponible para iniciar nuevos programas sin saturar el equipo.
+
+Por se muestran los datos en kilobytes, lo cual es difícil de leer. con `free -h` se logran ver los datos en un megabytes o gigabytes.
+
+Nota:
+* El comando free es originario de linux, por tanto, se pueden hallar diferencias si estas desde mac. (con wsl desde windows no pasa nada porque que se tiene ubuntu). 
+
+* La memoria Swap (o memoria de intercambio) es un espacio en el DISCO DURO que Linux usa como memoria RAM de reserva.Cuando la memoria RAM física se llena, el sistema se queda sin espacio. Linux busca los programas abiertos que no estás usando en ese momento.
+El sistema mueve esos programas temporalmente a la Swap en el disco duro.Así, la RAM física se libera para los programas que usas justo ahora.
+
+Es un salvavidas: Evita que tu computadora se congele o se apague un programa por falta de memoria.Es más lenta: El disco duro (incluso un SSD) es mucho más lento que la memoria RAM real.
+
+### df: ahora para memoria
+El comando df (disk free) sirve para ver el espacio total, usado y disponible en los discos duros y unidades de almacenamiento de tu sistema.
+
+Información clave que muestra
+* Filesystem: El nombre de la partición o disco medido.
+* Used: El espacio que ya tiene archivos guardados.
+* Available: El espacio libre que te queda para guardar cosas.
+* Use%: El porcentaje de disco ocupado.
+* Mounted on: La carpeta del sistema donde está conectado ese disco.
+
+Por defecto, el comando muestra los tamaños en bloques de bytes y es difícil de entender. Usa siempre:df -h: Muestra el espacio en un formato fácil de leer para humanos usando Gigabytes (G) o Megabytes (M).
+
+```bash
+df # información en bytes
+df -h #información en gigabytes(G) o Megabytes(M)
+```
+
+### du min 3:41:50.
