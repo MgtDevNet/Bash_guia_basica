@@ -1029,7 +1029,7 @@ El sistema mueve esos programas temporalmente a la Swap en el disco duro.Así, l
 
 Es un salvavidas: Evita que tu computadora se congele o se apague un programa por falta de memoria.Es más lenta: El disco duro (incluso un SSD) es mucho más lento que la memoria RAM real.
 
-### df: ahora para memoria
+### df: disk free, ahora para memoria
 El comando df (disk free) sirve para ver el espacio total, usado y disponible en los discos duros y unidades de almacenamiento de tu sistema.
 
 Información clave que muestra
@@ -1046,4 +1046,82 @@ df # información en bytes
 df -h #información en gigabytes(G) o Megabytes(M)
 ```
 
-### du min 3:41:50.
+### du: Disk usage
+Mide el espacio que ocupa un archivo o directorio específico en el almacenamiento.
+
+```bash
+du
+```
+El comando `du` Muestra el espacio de la carpeta actual y de cada una de sus subcarpetas detalladamente. Por defecto, arroja los valores en kilobytes, lo que puede ser difícil de leer.
+
+```bash
+du -sh
+```
+
+Muestra únicamente el tamaño total resumido de la carpeta actual en un formato fácil de leer (como Megabytes o Gigabytes). Pues -s (summary) para resumen de los resultados y -h (human readable) convirtiendo los número en formato humano para poder leer e identificar. 
+
+### jobs
+Este comando muestra una lista de las tareas o procesos que se están ejecutando en segundo plano (background) o que están pausados en la sesión actual de tu terminal. Sirve para controlar y administrar los programas que lanzas desde la consola sin perder el control de la línea de comandos. 
+
+Enviar un comando al segundo plano (background) significa hacer que un programa se ejecute destrás de escena en la terminal. Esto permite seguir usando la consola inmediatamente para escribir comandos sin tener que espera a que el primero programa se termine e ejecutar. 
+
+Por ejemplo, supongamos que desde la terminal se ejecuta un script de procesamiento de datos que durará 30 segundo en ejecutares (haremos la simulación con el comando `sleep 30`)
+
+En ese punto, la terminal queda bloqueada hasta hasta pasar los 30 segundos lo cual nos puede hacer perder tiempo.
+
+Por tanto, para corregir esto y aprovechar el tiempo entonces este script lo ejecutamos en segundo plano (background) simplemente agregando el símbolo & al final. 
+
+```bash
+sleep 30 &
+```
+
+De esta forma la tarea se ejecuta pero también podemos seguir usando la terminal a la vez ejecutandose todo por detrás. 
+
+Por tanto, si se quiere ver si se tienen procesos en segundo plano se ejecuta el comando `jobs`, pues es el que muestra todas las ejecuciones en segundo plano. 
+
+```bash
+sleep 30 #no deja hacer nada hasta pasados los 30 segundos
+jobs # no muestra nada
+
+sleep 30 & # ejecutar el comando en segundo plano
+jobs #mostrará el comando que se esta ejecutando
+```
+
+### history
+Este comando sirve para ver todo el historial de comandos que hemos hecho, entonces podemos ir navegando con el usando las flechas o usando !#, y el # ponemos el número del comando que se ha usado y automáticamente se escoge ese comando del historial. 
+
+# Alias o atajos
+Es un atajo o nombre personalizado que se crea para reemplazar un comando más largo, complejo o difícil de recordar. Funciona como un apodo: se escribe una palabra corta y la terminal la traduce automáticamente al comando real antes de ejecutarlo.
+
+Por ejemplo, si hay una carpeta a la cual nos dirigimos mucho y escribir su ruta es algo muy largo, simplemente basta con hacer un alias y para que con un coando corto nos dirijamos a esa carpeta.
+
+Por ejemplo, ya que es peligroso la eliminación sin retorno del `rm` se puede hacer el alias para que cada que se ejecute el comando  `rm` se ejecute el comando `rm -i` que es para eliminar pero antes pedir un permiso. 
+
+Para hacer esto, debemos crear la variable en el script de configuración de bash que esta oculto en el directorio home. 
+
+1. Nos vamos al directorio home
+```bash
+cd ~
+```
+
+2. Abrir el script de configuración de bash con un editor de texto como nano, vim o incluso vs code. 
+
+```bash
+nano .bashrc # En nano
+code .bashrc # en vs code
+vim .bashrc # en vim 
+```
+
+Luego, hay que bajar al y escribir el comando
+```bash
+alias <comando-como-alias>='<comando a reemplazar>'
+```
+por ejemplo
+```bash
+alias rm='rm -i'
+```
+Importante, no se puden dejar espacios ni antes ni después del "=" y el comando a reemplazar desbe estar en comillas simples.  
+
+En lo personal hago carpetas por proyectos, por tanto me gusta hacer alias para las rutas de estos proyetos para no demorarme en llegar a estas. 
+
+3:53:50
